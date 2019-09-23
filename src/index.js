@@ -53,7 +53,6 @@ class Pixys {
     }
 
     setValue(x, y, value = {}) {
-        console.log(this);
         let pixel = this.context.getImageData(x, y, 1, 1);
         if (value.hasOwnProperty('r')) pixel.data[0] = value.r;
         if (value.hasOwnProperty('g')) pixel.data[1] = value.g;
@@ -64,10 +63,14 @@ class Pixys {
 
     setPicker(cb) {
         const pick = (event) => {
-            const x = event.layerX;
-            const y = event.layerY;
-            const value = this.getValue(x, y)
+            const eventX = event.layerX;
+            const eventY = event.layerY;
+            const displayedWidth = event.target.clientWidth;
+            const displayedHeight = event.target.clientHeight;
+            const x = parseInt(this.canvas.width * (eventX / displayedWidth), 10)
+            const y = parseInt(this.canvas.height * (eventY / displayedHeight), 10)
 
+            const value = this.getValue(x, y)
             cb(x, y, value);
         }
         this.canvas.addEventListener('touchstart', (event) => {

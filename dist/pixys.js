@@ -59,7 +59,6 @@ function () {
 
       xhr.send(null);
     } else if (src instanceof HTMLElement && src.tagName.toLocaleLowerCase() === 'img') {
-      console.log(src);
       setImage(src);
     }
 
@@ -80,7 +79,6 @@ function () {
     key: "setValue",
     value: function setValue(x, y) {
       var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-      console.log(this);
       var pixel = this.context.getImageData(x, y, 1, 1);
       if (value.hasOwnProperty('r')) pixel.data[0] = value.r;
       if (value.hasOwnProperty('g')) pixel.data[1] = value.g;
@@ -94,8 +92,12 @@ function () {
       var _this2 = this;
 
       var pick = function pick(event) {
-        var x = event.layerX;
-        var y = event.layerY;
+        var eventX = event.layerX;
+        var eventY = event.layerY;
+        var displayedWidth = event.target.clientWidth;
+        var displayedHeight = event.target.clientHeight;
+        var x = parseInt(_this2.canvas.width * (eventX / displayedWidth), 10);
+        var y = parseInt(_this2.canvas.height * (eventY / displayedHeight), 10);
 
         var value = _this2.getValue(x, y);
 

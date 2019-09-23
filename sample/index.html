@@ -50,9 +50,10 @@
             el.textContent = `x: ${x}, y: ${y}, value: ${v}`
         })
 
+        var c;
         var img_source = document.getElementById('img_source');
         img_source.onload = function () {
-            var c = new Pixys(img_source, {
+            c = new Pixys(img_source, {
                 'parent': document.getElementById('container_2')
             });
             c.setPicker(function (x, y, v) {
