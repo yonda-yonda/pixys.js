@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
     <title>pixys.js sample</title>
     <style>
         #container_2 canvas {
@@ -14,12 +15,26 @@
         #img_source {
             display: none;
         }
+
+        #message_1,
+        #message_2 {
+            margin: 10px 0 40px;
+        }
     </style>
 </head>
 
 <body>
-    <div id="container_1"></div>
-    <div id="container_2"></div>
+    <section>
+        <h1>sample palette</h1>
+        <div id="container_1"></div>
+        <div id="message_1">click palette!</div>
+    </section>
+
+    <section>
+        <h1>sample palette (responsible)</h1>
+        <div id="container_2"></div>
+        <div id="message_2">click palette!</div>
+    </section>
     <img id="img_source" src="./color_test.png">
     <script src="../dist/babel-polyfill.min.js"></script>
     <script src="../dist/pixys.js"></script>
@@ -29,9 +44,18 @@
         var b = new Pixys('./color_test.png', {
             'parent': 'container_1'
         });
+        b.setPicker(function (x, y, v) {
+            const el = document.getElementById('message_1')
+            el.textContent = `x: ${x}, y: ${y}, value: ${v}`
+        })
+
         var c = new Pixys(document.getElementById('img_source'), {
             'parent': document.getElementById('container_2')
         });
+        c.setPicker(function (x, y, v) {
+            const el = document.getElementById('message_2')
+            el.textContent = `x: ${x}, y: ${y}, value: ${v}`
+        })
     </script>
 </body>
 
