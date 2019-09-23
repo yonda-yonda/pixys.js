@@ -21,6 +21,9 @@
             margin: 10px 0 40px;
         }
     </style>
+
+    <script src="../dist/babel-polyfill.min.js"></script>
+    <script src="../dist/pixys.js"></script>
 </head>
 
 <body>
@@ -36,8 +39,6 @@
         <div id="message_2">click palette!</div>
     </section>
     <img id="img_source" src="./color_test.png">
-    <script src="../dist/babel-polyfill.min.js"></script>
-    <script src="../dist/pixys.js"></script>
 
     <script>
         var a = new Pixys('./color_test.png');
@@ -49,13 +50,17 @@
             el.textContent = `x: ${x}, y: ${y}, value: ${v}`
         })
 
-        var c = new Pixys(document.getElementById('img_source'), {
-            'parent': document.getElementById('container_2')
-        });
-        c.setPicker(function (x, y, v) {
-            const el = document.getElementById('message_2')
-            el.textContent = `x: ${x}, y: ${y}, value: ${v}`
-        })
+        var img_source = document.getElementById('img_source');
+        img_source.onload = function () {
+            console.log('b');
+            var c = new Pixys(img_source, {
+                'parent': document.getElementById('container_2')
+            });
+            c.setPicker(function (x, y, v) {
+                const el = document.getElementById('message_2')
+                el.textContent = `x: ${x}, y: ${y}, value: ${v}`
+            })
+        }
     </script>
 </body>
 
